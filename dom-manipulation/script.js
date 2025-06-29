@@ -277,6 +277,50 @@ function showRandomQuote() {
   displayRandomQuote();
 }
 
+function createAddQuoteForm() {
+  // Check if form already exists
+  if (document.getElementById('addQuoteForm')) return;
+
+  const form = document.createElement('form');
+  form.id = 'addQuoteForm';
+
+  const quoteLabel = document.createElement('label');
+  quoteLabel.textContent = 'Quote: ';
+  const quoteInput = document.createElement('input');
+  quoteInput.type = 'text';
+  quoteInput.required = true;
+
+  const categoryLabel = document.createElement('label');
+  categoryLabel.textContent = ' Category: ';
+  const categoryInput = document.createElement('input');
+  categoryInput.type = 'text';
+  categoryInput.value = 'General';
+
+  const submitBtn = document.createElement('button');
+  submitBtn.type = 'submit';
+  submitBtn.textContent = 'Add Quote';
+
+  form.appendChild(quoteLabel);
+  form.appendChild(quoteInput);
+  form.appendChild(categoryLabel);
+  form.appendChild(categoryInput);
+  form.appendChild(submitBtn);
+
+  document.body.appendChild(form);
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const text = quoteInput.value.trim();
+    const category = categoryInput.value.trim() || 'General';
+    if (text) {
+      quotes.push({ text, category });
+      saveQuotes();
+      displayRandomQuote();
+      form.reset();
+      alert('Quote added!');
+    }
+  });
+}
 
 
 
