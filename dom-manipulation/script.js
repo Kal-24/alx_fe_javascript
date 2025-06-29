@@ -185,6 +185,30 @@ async function fetchQuotesFromServer() {
     alert('Failed to fetch quotes from server.');
   }
 }
+// === Post a new quote to mock API ===
+async function postQuoteToServer(quote) {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(quote)
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    console.log('Quote posted successfully:', responseData);
+    alert('Quote posted to server successfully!');
+  } catch (error) {
+    console.error('Failed to post quote:', error);
+    alert('Failed to post quote to server.');
+  }
+}
+
 
 
 
