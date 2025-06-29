@@ -138,4 +138,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   loadQuotes();
   loadLastViewedQuote();
-});
+});// === Fetch Quotes From Server ===
+async function fetchQuotesFromServer() {
+  try {
+    const response = await fetch('https://example.com/quotes.json'); 
+    // 🔗 Replace with your real API or JSON file URL
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const serverQuotes = await response.json();
+    if (Array.isArray(serverQuotes)) {
+      quotes.push(...serverQuotes);
+      saveQuotes();
+      alert('Quotes fetched and saved to local storage!');
+    } else {
+      alert('Invalid data format from server.');
+    }
+  } catch (error) {
+    console.error('Failed to fetch quotes:', error);
+    alert('Failed to fetch quotes from server.');
+  }
+}
+
+
