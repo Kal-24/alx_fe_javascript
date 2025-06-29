@@ -273,6 +273,10 @@ async function syncQuotes() {
     alert('Failed to sync quotes with server.');
   }
 }
+function showRandomQuote() {
+  displayRandomQuote();
+}
+
 
 
 
