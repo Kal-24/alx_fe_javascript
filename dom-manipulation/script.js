@@ -230,6 +230,29 @@ async function syncQuotes() {
     alert('Failed to sync quotes with server.');
   }
 }
+setInterval(() => {
+  fetchQuotesFromServer();
+}, 300000);
+
+async function fetchQuotesFromServer() {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+    const posts = await response.json();
+    const fetchedQuotes = posts.map(post => ({
+      text: post.title,
+      category: 'MockAPI'
+    }));
+
+    quotes.push(...fetchedQuotes);
+    saveQuotes();
+    alert('Quotes fetched from server!');
+  } catch (error) {
+    console.error('Failed to fetch quotes:', error);
+  }
+}
+
 
 
 
