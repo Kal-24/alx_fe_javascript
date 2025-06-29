@@ -161,5 +161,30 @@ async function fetchQuotesFromServer() {
     alert('Failed to fetch quotes from server.');
   }
 }
+// === Fetch Quotes From Server using mock API ===
+async function fetchQuotesFromServer() {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const posts = await response.json();
+
+    // Map posts to quotes format (e.g., using title as quote text)
+    const fetchedQuotes = posts.map(post => ({
+      text: post.title,
+      category: 'MockAPI'
+    }));
+
+    quotes.push(...fetchedQuotes);
+    saveQuotes();
+    alert('Quotes fetched from mock API and saved!');
+  } catch (error) {
+    console.error('Failed to fetch quotes:', error);
+    alert('Failed to fetch quotes from server.');
+  }
+}
+
 
 
