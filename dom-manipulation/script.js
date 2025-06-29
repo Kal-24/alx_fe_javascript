@@ -321,6 +321,8 @@ function createAddQuoteForm() {
     }
   });
 }
+document.getElementById('newQuoteButton').addEventListener('click', displayRandomQuote);
+
 
 
 
