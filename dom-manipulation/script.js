@@ -51,3 +51,31 @@ const quotes = [
   // Show an initial quote on load
   showRandomQuote();
   
+// Dynamically build and inject the add‑quote form
+function createAddQuoteForm() {
+  const formDiv = document.createElement('div');
+
+  const inputText = document.createElement('input');
+  inputText.id = 'newQuoteText';
+  inputText.type = 'text';
+  inputText.placeholder = 'Enter a new quote';
+
+  const inputCat = document.createElement('input');
+  inputCat.id = 'newQuoteCategory';
+  inputCat.type = 'text';
+  inputCat.placeholder = 'Enter quote category';
+
+  const addBtn = document.createElement('button');
+  addBtn.id = 'addQuoteBtn';
+  addBtn.textContent = 'Add Quote';
+  addBtn.addEventListener('click', addQuote);
+
+  formDiv.append(inputText, inputCat, addBtn);
+  document.body.appendChild(formDiv);
+}
+
+// Create the form on page load and show the first quote
+createAddQuoteForm();
+showRandomQuote();
+
+
