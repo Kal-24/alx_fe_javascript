@@ -7,7 +7,6 @@ function loadQuotes() {
   if (storedQuotes) {
     quotes = JSON.parse(storedQuotes);
   } else {
-    // Default quotes with categories
     quotes = [
       { text: "The only limit to our realization of tomorrow is our doubts of today.", category: "Motivation" },
       { text: "Do what you can, with what you have, where you are.", category: "Productivity" },
@@ -32,7 +31,6 @@ function populateCategories() {
   // Clear old options
   categorySelect.innerHTML = '<option value="all">All Categories</option>';
 
-  // Add unique categories
   categories.forEach(category => {
     const option = document.createElement('option');
     option.value = category;
@@ -60,7 +58,7 @@ function displayRandomQuote() {
   const quote = filteredQuotes[randomIndex];
   document.getElementById('quoteDisplay').innerText = quote.text;
 
-  // Save last viewed quote to session storage
+  // ✅ Save last viewed quote to session storage
   sessionStorage.setItem('lastViewedQuote', quote.text);
 }
 
@@ -125,7 +123,19 @@ function loadLastViewedQuote() {
   }
 }
 
-// === Initialize ===
-loadQuotes();
-loadLastViewedQuote();
+// ✅ === Attach Event Listeners Using addEventListener ===
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('categoryFilter')
+    .addEventListener('change', filterQuotesByCategory);
 
+  const buttons = document.querySelectorAll('button');
+  buttons[0].addEventListener('click', displayRandomQuote);  // New Quote
+  buttons[1].addEventListener('click', addQuote);            // Add Quote
+  buttons[2].addEventListener('click', exportQuotesToJson);  // Export Quotes
+
+  document.querySelector('input[type="file"]')
+    .addEventListener('change', importFromJsonFile);
+
+  loadQuotes();
+  loadLastViewedQuote();
+});
