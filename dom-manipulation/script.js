@@ -207,7 +207,31 @@ async function postQuoteToServer(quote) {
     console.error('Failed to post quote:', error);
     alert('Failed to post quote to server.');
   }
+}// === Sync Quotes with Server ===
+async function syncQuotes() {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(quotes)  // Send all quotes as JSON
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    alert('Quotes synced successfully with server!');
+    console.log('Sync result:', result);
+  } catch (error) {
+    console.error('Failed to sync quotes:', error);
+    alert('Failed to sync quotes with server.');
+  }
 }
+
+
 
 
 
