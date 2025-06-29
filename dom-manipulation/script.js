@@ -252,6 +252,28 @@ async function fetchQuotesFromServer() {
     console.error('Failed to fetch quotes:', error);
   }
 }
+// Show notification when quotes are successfully synced
+function showSyncSuccessNotification() {
+  alert('Quotes synced with server!');
+}
+
+// Example usage inside syncQuotes function
+async function syncQuotes() {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(quotes)
+    });
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+    showSyncSuccessNotification();
+  } catch (error) {
+    console.error('Failed to sync quotes:', error);
+    alert('Failed to sync quotes with server.');
+  }
+}
+
 
 
 
